@@ -23,5 +23,6 @@ void setup() {
 }
 
 void loop() {
-  lcd->loop();
+  geiger->loop();
+  lcd->loop(geiger->getIsFullAccuracy(), geiger->getLastImpulses(), geiger->getCPM(), geiger->getUSv());
 }

@@ -10,9 +10,13 @@ public:
 	virtual ~Lcd();
 
 	void setup();
-	void loop();
+	void loop(bool isFullAccuracy, unsigned long lastImpulses, unsigned long cpm, double uSv);
 private:
     LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
+
+    unsigned long lastImpulses = 0;
+    unsigned long cpm = 0;
+    double uSv = 0.0;
 };
 
 
