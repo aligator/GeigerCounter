@@ -63,7 +63,7 @@ void Geiger::loop()
     }
 }
 
-unsigned long Geiger::getLastImpulses() 
+unsigned long Geiger::getLastImpulses()
 {
     size_t index = this->counterIndex;
     if (index == 0) {
@@ -92,7 +92,13 @@ double Geiger::getUSv()
     return this->getCPM() * this->factor;
 }
 
-bool Geiger::getIsFullAccuracy()
+GeigerStats Geiger::getStats() 
 {
-    return this->isFullAccuracy;
+    struct GeigerStats stats;
+    stats.isFullAccuracy = this->isFullAccuracy;
+    stats.lastImpulses = this->getLastImpulses();
+    stats.cpm = this->getCPM();
+    stats.uSv = this->getUSv();
+
+    return stats;
 }

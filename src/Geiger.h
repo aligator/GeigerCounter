@@ -1,6 +1,7 @@
 #ifndef GEIGER_H_
 #define GEIGER_H_
 #include <Arduino.h>
+#include "GeigerStats.h"
 
 #define COUNTERS_SIZE 5
 
@@ -12,10 +13,8 @@ public:
 	void setup(int pin);
     void setup(int pin, double factor);
 	void loop();
-    bool getIsFullAccuracy();
-    unsigned long getLastImpulses();
-    unsigned long getCPM();
-    double getUSv();
+    GeigerStats getStats();
+    
 private:
     double factor = 0.0067;
 
@@ -36,7 +35,9 @@ private:
     unsigned long lastShift = 0;
 
     void clear();
+    unsigned long getLastImpulses();
+    unsigned long getCPM();
+    double getUSv();
 };
-
 
 #endif /* GEIGER_H_ */

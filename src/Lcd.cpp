@@ -26,32 +26,32 @@ void Lcd::setup()
     this->lcd.print(0, 4);
 }
 
-void Lcd::loop(bool isFullAccuracy, unsigned long lastImpulses, unsigned long cpm, double uSv)
+void Lcd::loop(GeigerStats stats)
 {
-    if (lastImpulses != this->lastImpulses ||
-        cpm != this->cpm ||
-        uSv != this->uSv
+    if (stats.lastImpulses != this->lastImpulses ||
+        stats.cpm != this->cpm ||
+        stats.uSv != this->uSv
     ) {
-        if (isFullAccuracy) {
+        if (stats.isFullAccuracy) {
             this->lcd.setCursor(0, 0);
             this->lcd.print("Geiger Counter      ");
         }
 
-        this->lastImpulses = lastImpulses;
-        this->cpm = cpm;
-        this->uSv = uSv;
+        this->lastImpulses = stats.lastImpulses;
+        this->cpm = stats.cpm;
+        this->uSv = stats.uSv;
 
         this->lcd.setCursor(10, 1);
         this->lcd.print("          ");
         this->lcd.setCursor(10, 1);
-        this->lcd.print(lastImpulses);
+        this->lcd.print(stats.lastImpulses);
         this->lcd.setCursor(10, 2); 
         this->lcd.print("          ");
         this->lcd.setCursor(10, 2);
-        this->lcd.print(cpm);
+        this->lcd.print(stats.cpm);
         this->lcd.setCursor(10, 3); 
         this->lcd.print("          ");
         this->lcd.setCursor(10, 3);
-        this->lcd.print(uSv, 4);
+        this->lcd.print(stats.uSv, 4);
     }
 }

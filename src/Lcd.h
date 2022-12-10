@@ -1,5 +1,6 @@
 #ifndef LCD_H_
 #define LCD_H_
+#include "GeigerStats.h"
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -10,7 +11,7 @@ public:
 	virtual ~Lcd();
 
 	void setup();
-	void loop(bool isFullAccuracy, unsigned long lastImpulses, unsigned long cpm, double uSv);
+	void loop(GeigerStats stats);
 private:
     LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
