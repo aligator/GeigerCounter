@@ -19,7 +19,7 @@ void Lcd::setup()
     this->lcd.print("Last 15s: ");      
     this->lcd.print(0);
     this->lcd.setCursor(0, 2); 
-    this->lcd.print("     CPM: ");      
+    this->lcd.print("Last min: ");      
     this->lcd.print(0);
     this->lcd.setCursor(0, 3); 
     this->lcd.print("   uSv/h: ");
