@@ -46,16 +46,19 @@ void Mqtt::_reconnect() {
         } else {
             Serial.println("Connected");
 
+            Serial.println("Sending HA discovery.");
             DynamicJsonDocument doc(1024);
             doc["name"] = "Geiger Counter Ticks 15s";
             doc["stat_t"] = TOPIC_TICK_15S;
             doc["frc_upd"] = true;
+            doc["icon"] = "mdi:clock-time-three";
             this->sendHADiscoveryMsg(doc, TOPIC_TICK_15S);
             doc.clear();
 
             doc["name"] = "Geiger Counter Ticks 60s";
             doc["stat_t"] = TOPIC_TICK_60S;
             doc["frc_upd"] = true;
+            doc["icon"] = "mdi:clock-time-twelve";
             this->sendHADiscoveryMsg(doc, TOPIC_TICK_60S);
             doc.clear();
 
@@ -63,7 +66,10 @@ void Mqtt::_reconnect() {
             doc["stat_t"] = TOPIC_USV;
             doc["unit_of_meas"] = "µSv";
             doc["frc_upd"] = true;
+            doc["icon"] = "mdi:atom-variant";
             this->sendHADiscoveryMsg(doc, TOPIC_USV);
+
+            Serial.println("DONE!");
         }
     }
 }
