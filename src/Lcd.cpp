@@ -1,4 +1,5 @@
 #include "Lcd.h"
+#include <ESP8266WiFi.h>
 
 Lcd::Lcd()
 {
@@ -26,7 +27,7 @@ void Lcd::setup()
     this->lcd.print(0, 4);
 }
 
-void Lcd::loop(GeigerStats stats)
+void Lcd::loop(GeigerStats stats, String ip)
 {
     if (stats.lastImpulses != this->lastImpulses ||
         stats.cpm != this->cpm ||
@@ -34,7 +35,7 @@ void Lcd::loop(GeigerStats stats)
     ) {
         if (stats.isFullAccuracy) {
             this->lcd.setCursor(0, 0);
-            this->lcd.print("Geiger Counter      ");
+            this->lcd.print(ip);
         }
 
         this->lastImpulses = stats.lastImpulses;

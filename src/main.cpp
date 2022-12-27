@@ -1,28 +1,27 @@
 #include <Arduino.h>
-// #include <ESP8266WiFi.h>
-
-// #include <DNSServer.h>
-// #include <ESP8266WebServer.h>
-// #include <WiFiManager.h>
 
 #include "Lcd.h"
 #include "Geiger.h"
+#include "Wifi.h"
+#include "Config.h"
 
+Wifi* wifi = new Wifi();
 Lcd* lcd = new Lcd();
 Geiger* geiger = new Geiger();
 
 
 void setup() {
   Serial.begin(9600);
-  // WiFiManager wifiManager;
-  // wifiManager.autoConnect("GeigerCounterAP");
-  // Serial.println("connected...yeey :)");
-
+  
+  wifi->setup();
   lcd->setup();
   geiger->setup(13);
+
+  const Config config = ConfigLoader::load();
 }
 
 void loop() {
+  wifi->loop();
   geiger->loop();
-  lcd->loop(geiger->getStats());
+  lcd->loop(geiger->getStats(), wifi->localIP().toString());
 }

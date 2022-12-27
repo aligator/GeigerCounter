@@ -11,7 +11,7 @@ public:
 	virtual ~Lcd();
 
 	void setup();
-	void loop(GeigerStats stats);
+	void loop(GeigerStats stats, String ip);
 private:
     LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 
