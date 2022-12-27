@@ -5,6 +5,7 @@
 #include <ESP8266WiFi.h>
 #include <DNSServer.h>
 #include <WiFiManager.h>
+#include "Config.h"
 
 #define WEBSERVER_H // needed to work with the wifimanager
 #include "ESPAsyncWebServer.h"
@@ -14,7 +15,7 @@ public:
   Wifi();
   virtual ~Wifi();
 
-  void setup();
+  Config setup();
   void loop();
   IPAddress localIP();
 

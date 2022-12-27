@@ -13,7 +13,7 @@ Lcd::~Lcd()
 void Lcd::setup()
 {
     this->lcd.init();
-    this->lcd.backlight();
+    this->lcd.noBacklight(); // For now disable it, -> make configurable later...
     this->lcd.setCursor(0, 0);
     this->lcd.print("...BUFFERING...");
     this->lcd.setCursor(0, 1);

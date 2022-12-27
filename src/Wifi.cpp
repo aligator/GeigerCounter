@@ -32,7 +32,7 @@ Wifi::Wifi() {}
 
 Wifi::~Wifi() {}
 
-void Wifi::setup() {
+Config Wifi::setup() {
   Config conf = ConfigLoader::load();
 
   char portStr[6]; 
@@ -118,6 +118,8 @@ void Wifi::setup() {
   });
 
   this->server.begin();
+
+  return config;
 }
 
 void Wifi::loop() {
