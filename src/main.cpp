@@ -16,8 +16,6 @@ void setup() {
   wifi->setup();
   lcd->setup();
   geiger->setup(13);
-
-  const Config config = ConfigLoader::load();
 }
 
 void loop() {

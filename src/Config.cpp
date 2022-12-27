@@ -56,6 +56,7 @@ Config ConfigLoader::load()
     Serial.println("\nparsed json");
     strcpy(config.mqttHost, json["mqttHost"]);
     config.mqttPort = json["mqttPort"].as<uint>();
+    config.doReset = json["doReset"].as<bool>();
     strcpy(config.mqttUser, json["mqttUser"]);
     strcpy(config.mqttPassword, json["mqttPassword"]);
   }
@@ -79,6 +80,7 @@ void ConfigLoader::save(Config newConfig)
   json["mqttPort"] = newConfig.mqttPort;
   json["mqttUser"] = newConfig.mqttUser;
   json["mqttPassword"] = newConfig.mqttPassword;
+  json["doReset"] = newConfig.doReset;
 
   Serial.println("mounting FS...");
 

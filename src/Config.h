@@ -10,6 +10,7 @@ struct Config {
   uint mqttPort;
   char mqttUser[64];
   char mqttPassword[64];
+  bool doReset;
 };
 
 class ConfigLoader {
