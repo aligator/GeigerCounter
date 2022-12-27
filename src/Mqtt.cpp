@@ -64,7 +64,7 @@ void Mqtt::_reconnect() {
 
             doc["name"] = "Geiger Counter µSv";
             doc["stat_t"] = TOPIC_USV;
-            doc["unit_of_meas"] = "µSv";
+            doc["unit_of_meas"] = "µSv/h";
             doc["frc_upd"] = true;
             doc["icon"] = "mdi:atom-variant";
             this->sendHADiscoveryMsg(doc, TOPIC_USV);
