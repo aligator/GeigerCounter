@@ -76,10 +76,13 @@ Config Wifi::setup() {
   //here  "AutoConnectAP"
   //and goes into a blocking loop awaiting configuration
   bool ok = false;
+  Config newConfig = Config();
   if (conf.doReset) {
     ok = wifiManager.startConfigPortal("AutoConnectAP", "GeigerCounter");
   } else {
     ok = wifiManager.autoConnect("AutoConnectAP", "GeigerCounter");
+    // Preserve the clientId only if it was no reset.
+    newConfig.clientId = conf.clientId;
   }
 
   if (!ok) {
@@ -93,19 +96,14 @@ Config Wifi::setup() {
   //if you get here you have connected to the WiFi
   Serial.println("connected...yeey :)");
 
-  Config config = Config();
-  strcpy(config.mqttHost, customMqttHost.getValue());
-  config.mqttPort = atoi(customMqttPort.getValue());
-  strcpy(config.mqttUser, customMqttUser.getValue());
-  strcpy(config.mqttPassword, customMqttPassword.getValue());
-
-  Serial.println(config.mqttHost);
-  Serial.println(config.mqttPort);
-  Serial.println(config.mqttUser);
-  Serial.println(config.mqttPassword);
+  
+  strcpy(newConfig.mqttHost, customMqttHost.getValue());
+  newConfig.mqttPort = atoi(customMqttPort.getValue());
+  strcpy(newConfig.mqttUser, customMqttUser.getValue());
+  strcpy(newConfig.mqttPassword, customMqttPassword.getValue());
 
   if (shouldSaveConfig) {
-    ConfigLoader::save(config);
+    ConfigLoader::save(newConfig);
   }
 
   this->server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
@@ -119,7 +117,7 @@ Config Wifi::setup() {
 
   this->server.begin();
 
-  return config;
+  return newConfig;
 }
 
 void Wifi::loop() {

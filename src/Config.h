@@ -11,6 +11,7 @@ struct Config {
   char mqttUser[64];
   char mqttPassword[64];
   bool doReset;
+  String clientId;
 };
 
 class ConfigLoader {

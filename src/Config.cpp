@@ -59,6 +59,7 @@ Config ConfigLoader::load()
     config.doReset = json["doReset"].as<bool>();
     strcpy(config.mqttUser, json["mqttUser"]);
     strcpy(config.mqttPassword, json["mqttPassword"]);
+    config.clientId = String(json["clientId"]);
   }
   else
   {
@@ -76,11 +77,18 @@ void ConfigLoader::save(Config newConfig)
   // save the custom parameters to FS
   Serial.println("saving config");
   DynamicJsonDocument json(1024);
+
+  if (newConfig.clientId.equals("")) {
+    newConfig.clientId = "Geiger";
+    newConfig.clientId += String(random(0xffff), HEX);
+  }
+
   json["mqttHost"] = newConfig.mqttHost;
   json["mqttPort"] = newConfig.mqttPort;
   json["mqttUser"] = newConfig.mqttUser;
   json["mqttPassword"] = newConfig.mqttPassword;
   json["doReset"] = newConfig.doReset;
+  json["clientId"] = newConfig.clientId;
 
   Serial.println("mounting FS...");
 
