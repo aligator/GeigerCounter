@@ -57,6 +57,7 @@ void Mqtt::_reconnect()
             DynamicJsonDocument doc(1024);
             doc["name"] = "Geiger Counter Ticks 15s";
             doc["stat_t"] = TOPIC_TICK_15S;
+            doc["unit_of_meas"] = "";
             doc["frc_upd"] = true;
             doc["icon"] = "mdi:clock-time-three";
             this->sendHADiscoveryMsg(doc, "last15s");
@@ -64,6 +65,7 @@ void Mqtt::_reconnect()
 
             doc["name"] = "Geiger Counter Ticks 60s";
             doc["stat_t"] = TOPIC_TICK_60S;
+            doc["unit_of_meas"] = "";
             doc["frc_upd"] = true;
             doc["icon"] = "mdi:clock-time-twelve";
             this->sendHADiscoveryMsg(doc, "last60s");

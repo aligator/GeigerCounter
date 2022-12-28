@@ -78,9 +78,11 @@ void ConfigLoader::save(Config newConfig)
   Serial.println("saving config");
   DynamicJsonDocument json(1024);
 
-  if (newConfig.clientId.equals("")) {
+  if (newConfig.clientId == NULL || newConfig.clientId.isEmpty()) {
     newConfig.clientId = "Geiger";
     newConfig.clientId += String(random(0xffff), HEX);
+
+    Serial.println(newConfig.clientId);
   }
 
   json["mqttHost"] = newConfig.mqttHost;

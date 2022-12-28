@@ -45,7 +45,8 @@ Config Wifi::setup() {
   WiFiManagerParameter customMqttPort("port", "mqtt port", portStr, 6);
   WiFiManagerParameter customMqttUser("user", "mqtt user", conf.mqttUser, 64);
   WiFiManagerParameter customMqttPassword("password", "mqtt password", conf.mqttPassword, 64);
-  
+  WiFiManagerParameter customMqttClientId("clientId", "client ID", conf.clientId.c_str(), 64);
+
   //WiFiManager
   //Local intialization. Once its business is done, there is no need to keep it around
   WiFiManager wifiManager;
@@ -58,6 +59,7 @@ Config Wifi::setup() {
   wifiManager.addParameter(&customMqttPort);
   wifiManager.addParameter(&customMqttUser);
   wifiManager.addParameter(&customMqttPassword);
+  wifiManager.addParameter(&customMqttClientId);
 
   //reset settings - for testing
   //wifiManager.resetSettings();
@@ -81,8 +83,6 @@ Config Wifi::setup() {
     ok = wifiManager.startConfigPortal("AutoConnectAP", "GeigerCounter");
   } else {
     ok = wifiManager.autoConnect("AutoConnectAP", "GeigerCounter");
-    // Preserve the clientId only if it was no reset.
-    newConfig.clientId = conf.clientId;
   }
 
   if (!ok) {
@@ -101,6 +101,9 @@ Config Wifi::setup() {
   newConfig.mqttPort = atoi(customMqttPort.getValue());
   strcpy(newConfig.mqttUser, customMqttUser.getValue());
   strcpy(newConfig.mqttPassword, customMqttPassword.getValue());
+  newConfig.clientId = String(customMqttClientId.getValue());
+
+  Serial.println(newConfig.clientId);
 
   if (shouldSaveConfig) {
     ConfigLoader::save(newConfig);
